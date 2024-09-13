@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <title>
+        Метод половинного деления (бисекция)
+    </title>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="container my-3" style="padding-bottom: 100px;">
+            <h1 class="display-2">Калькулятор для метода половинного деления</h1>
+            <p class="lead">
+                Этот калькулятор создан, чтоб автомотизировать процесс написания задачи или проверки себя.
+                Калькулятор не гарантирует абсолютную точность или работоспособность, если из-за списанного с него решения вы получите плохую оценку, то отвественность лежит полностью на вас.
+            </p>
+            <p class="lead">Инструкция:</p>
+            <p class="lead">Для поля с функцией для обозначения степени используйте '**'. </p>
+            <p class="lead">Если вам неободимо дробное число используйте точку('.'), а не запятую(',').</p>
+            <p class="lead">Для обозначения дроби рекомендуется подобная запись: ((x + y)/(z * v)).</p>
+            <p class="lead">Перед числами промежуточного результата +- обозначает положительное или негативное значение принимает функция в данное точке, то есть</p>
+            <p class="lead">-0.5 будет значить f(0.5) < 0  и соответственно +0.5 будет f(0.5) >0 </p>
+
+            <form action="" method="POST" novalidate>
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    <h1>Переменные</h1>
+                    <label>{{ form.func.label }}</label>
+                    {{ form.func(class="form-control") }}
+                    {% for error in form.func.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label>{{ form.a.label }}</label>
+                    {{ form.a(class="form-control") }}
+                    {% for error in form.a.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label>{{ form.b.label }}</label>
+                    {{ form.b(class="form-control") }}
+                    {% for error in form.b.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    <label>{{ form.eps.label }}</label>
+                    {{ form.eps(class="form-control") }}
+                    {% for error in form.eps.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form.submit(class="btn btn-primary btn-lg") }}
+            </form>
+            {% if root %}
+                {% for step in progress_lst %}
+                    {% if step[2] == 'r' %}
+                        <p>{{ step[0] }} <s>{{ step[1] }}</s></p>
+                    {% else %}
+                        <p><s>{{ step[0] }}</s> {{ step[1] }}</p>
+                    {% endif %}
+                {% endfor %}
+                <h2>Корень: {{ root }}</h2>
+            {% elif error %}
+                <h2>Ошибка: {{ error }}</h2>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
