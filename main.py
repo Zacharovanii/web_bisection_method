@@ -4,7 +4,7 @@ from wtforms import SubmitField, StringField
 from wtforms.validators import DataRequired
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Zacharovanii_LONG'
+app.config['SECRET_KEY'] = 'secret'
 
 
 class FuncDataForm(FlaskForm):
